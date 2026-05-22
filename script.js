@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const linkUrl = `detail.html?q=${encodeURIComponent(keywordForUrl)}`; 
 
                 const queryImage = keyword + " wall art poster";
-                // Parameter potong dihapus agar gambar Home mengikuti rasio aslinya
                 const imageUrl = `https://tse1.mm.bing.net/th?q=${encodeURIComponent(queryImage)}&w=500&pid=1.7`;
                 
                 const newTitle = generateSeoTitle(keyword);
