@@ -127,7 +127,7 @@ footer { text-align: center; padding: 1.5rem 0; border-top: 1px solid #e6e6e6; b
 
 .detail-image { 
     margin: 0 auto 4px auto; /* Jarak bawah gambar tipis */
-    max-width: 500px; 
+    max-width: 100%; 
     width: 100%;
     padding: 0;
     line-height: 0; /* Menghilangkan sisa space font inline di bawah gambar */
