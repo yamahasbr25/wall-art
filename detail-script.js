@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         detailTitle.textContent = newTitle;
 
         const queryImage = term + " wall art poster";
-        const mainImageUrl = `https://tse1.mm.bing.net/th?q=${encodeURIComponent(queryImage)}&w=800&pid=1.7`;
+        const mainImageUrl = `https://tse1.mm.bing.net/th?q=${encodeURIComponent(queryImage)}&w=600&h=900&c=7&rs=1&p=0&dpr=1.5&pid=1.7`;
         detailImageContainer.innerHTML = `<img src="${mainImageUrl}" alt="${newTitle}">`;
 
         const spintaxArticleTemplate = `{Get|Download} this premium <strong>${capitalizedTermForArticle}</strong> printable wall art to {instantly upgrade|beautifully elevate} your room decor.`;
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const linkUrl = `detail.html?q=${encodeURIComponent(keywordForUrl)}`;
             
             const queryImage = relatedTerm + " wall art poster";
-            const imageUrl = `https://tse1.mm.bing.net/th?q=${encodeURIComponent(queryImage)}&w=400&pid=1.7`;
+            const imageUrl = `https://tse1.mm.bing.net/th?q=${encodeURIComponent(queryImage)}&w=400&h=600&c=7&rs=1&p=0&dpr=1.5&pid=1.7`;
             
             const newRelatedTitle = generateSeoTitle(relatedTerm);
             const card = `<article class="content-card"><a href="${linkUrl}"><img src="${imageUrl}" alt="${newRelatedTitle}" loading="lazy"><div class="content-card-body"><h3>${newRelatedTitle}</h3></div></a></article>`;
