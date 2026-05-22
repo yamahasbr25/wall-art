@@ -36,13 +36,10 @@ document.addEventListener('DOMContentLoaded', function() {
         detailTitle.textContent = newTitle;
 
         const queryImage = term + " wall art poster";
-        
-        // PERBAIKAN GAMBAR UTAMA: Menghilangkan instruksi potong (crop & h) dari Bing.
-        // Parameter &w=800 akan menarik gambar resolusi bagus sesuai rasio asli.
+        // Gambar Utama (Resolusi Besar, Rasio Asli)
         const mainImageUrl = `https://tse1.mm.bing.net/th?q=${encodeURIComponent(queryImage)}&w=800&pid=1.7`;
         detailImageContainer.innerHTML = `<img src="${mainImageUrl}" alt="${newTitle}">`;
 
-        // SPINTAX TEMA WALL ART / DECORATION
         const spintaxArticleTemplate = `
             <p>{Welcome|Hello, decor enthusiasts|Greetings, interior lovers} to our design gallery! {This time|Today|In this post}, we will {explore|share|discover} some {beautiful and inspiring|aesthetic and creative|minimalist and trendy} ideas for <strong>${capitalizedTermForArticle}</strong>.
             {Finding|Discovering} the {right|perfect|ideal} wall art for your space {can sometimes be a challenge|is essential for bringing a room together|requires a bit of creative vision}.
@@ -82,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function generateRelatedPosts(term) {
         const script = document.createElement('script');
-        // PERBAIKAN RELATED POSTS: Mengubah client=firefox menjadi client=youtube untuk dukungan JSONP
+        // Solusi Related Posts (client=youtube)
         script.src = `https://suggestqueries.google.com/complete/search?client=youtube&jsonp=handleRelatedSuggest&hl=en&q=${encodeURIComponent(term)}`;
         document.head.appendChild(script);
         script.onload = () => script.remove();
@@ -98,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let relatedCount = 0;
         
         suggestions.forEach(item => {
-            // Karena client=youtube mengirim array bersarang, kita harus mengekstrak string teks utamanya
             const relatedTerm = typeof item === 'string' ? item : item[0];
             
             if (!relatedTerm || relatedTerm.toLowerCase() === originalKeyword || relatedCount >= 10) return;
@@ -108,8 +104,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const linkUrl = `detail.html?q=${encodeURIComponent(keywordForUrl)}`;
             
             const queryImage = relatedTerm + " wall art poster";
-            // Gambar related posts tetap dipotong (crop ke 2:3) untuk estetika grid website
-            const imageUrl = `https://tse1.mm.bing.net/th?q=${encodeURIComponent(queryImage)}&w=600&h=900&c=7&rs=1&p=0&dpr=1.5&pid=1.7`;
+            
+            // Gambar Related Posts (Rasio Asli)
+            const imageUrl = `https://tse1.mm.bing.net/th?q=${encodeURIComponent(queryImage)}&w=400&pid=1.7`;
+            
             const newRelatedTitle = generateSeoTitle(relatedTerm);
             const card = `<article class="content-card"><a href="${linkUrl}"><img src="${imageUrl}" alt="${newRelatedTitle}" loading="lazy"><div class="content-card-body"><h3>${newRelatedTitle}</h3></div></a></article>`;
             relatedPostsContainer.innerHTML += card;
