@@ -36,50 +36,17 @@ document.addEventListener('DOMContentLoaded', function() {
         detailTitle.textContent = newTitle;
 
         const queryImage = term + " wall art poster";
-        // Gambar Utama (Resolusi Besar, Rasio Asli)
         const mainImageUrl = `https://tse1.mm.bing.net/th?q=${encodeURIComponent(queryImage)}&w=800&pid=1.7`;
         detailImageContainer.innerHTML = `<img src="${mainImageUrl}" alt="${newTitle}">`;
 
-        const spintaxArticleTemplate = `
-            <p>{Welcome|Hello, decor enthusiasts|Greetings, interior lovers} to our design gallery! {This time|Today|In this post}, we will {explore|share|discover} some {beautiful and inspiring|aesthetic and creative|minimalist and trendy} ideas for <strong>${capitalizedTermForArticle}</strong>.
-            {Finding|Discovering} the {right|perfect|ideal} wall art for your space {can sometimes be a challenge|is essential for bringing a room together|requires a bit of creative vision}.
-            {That's why|Therefore}, we've {curated|gathered|collected} {a variety of|several} of the {best concepts|most stunning prints} for {you|our lovely readers}.</p>
-
-            <h3>{Key Elements|Main Focus|Crucial Details} of ${capitalizedTermForArticle}</h3>
-            <p>To {achieve|create|design} the {best|most aesthetic|most satisfying} look with your <strong>${capitalizedTermForArticle}</strong>, there are {several things|a few key aspects} that {need your attention|you should consider}.
-            {From|Whether it's} the {frame selection|choice of paper}, {printing technique|sizing options}, to the {final placement|gallery wall layout}, everything {plays a crucial role|makes a huge difference|contributes significantly}.</p>
-
-            <h4>1. {High-Quality|Premium|Perfect} {Paper Quality|Printing}</h4>
-            <p>{The foundation of|The secret to} a great digital download is the print quality.
-            For your <strong>${capitalizedTermForArticle}</strong>, {we recommend using|try printing on} {heavyweight matte paper|fine art textured paper|premium cardstock} to {create|achieve} a finish that looks {professional and vibrant|gallery-worthy and elegant|authentic and high-end}.</p>
-
-            <h4>2. {Choosing|Selecting|Finding} The Right Frame</h4>
-            <p>{A good frame|The right framing} must {complement the artwork|elevate your poster}.
-            {Choose|Select} a frame that {matches your interior style|highlights the colors of} the <strong>${capitalizedTermForArticle}</strong>.
-            {For instance|For example}, a {natural oak wood frame|sleek black metal frame|vintage gold ornate frame} can be a {game-changer|stunning addition} to your living room or bedroom.</p>
-
-            <h4>3. {Creating|Designing|Planning} a Gallery Wall</h4>
-            <p>{Wall art never has to be lonely|Mixing and matching sizes} {creates a stunning focal point|adds character to blank walls}.
-            {Consider combining|Try grouping} your <strong>${capitalizedTermForArticle}</strong> with {typography quotes, abstract shapes, and personal photos|botanical prints and minimalist lines}.</p>
-
-            <h4>4. {Affordable|Budget-Friendly|Smart} Home Decor</h4>
-            <p>{Decorating your home doesn't have to be expensive|Printable art is the ultimate DIY hack}. 
-            {By choosing digital downloads|With instant download files}, you save on {shipping costs|expensive gallery markups}. 
-            Just download your <strong>${capitalizedTermForArticle}</strong>, print it locally or at home, and hang it up!</p>
-
-            <h3>{Conclusion|Final Thoughts|Wrapping It Up}</h3>
-            <p>{So there you have it|And that's a wrap}—several {ideas and inspirations|beautiful concepts|tips and tricks} for <strong>${capitalizedTermForArticle}</strong> that {you can try today|will instantly upgrade your space}.
-            {Remember, the key is|The most important thing to remember is} {creativity and letting your personality shine|choosing art that makes you happy}.</p>
-
-            <p>{Happy decorating|Enjoy your beautiful home}!</p>
-        `;
+        // ARTIKEL SINGKAT (±100 Karakter) & TETAP MENGANDUNG KEYWORD UTAMA
+        const spintaxArticleTemplate = `{Get|Download} this premium <strong>${capitalizedTermForArticle}</strong> printable wall art to {instantly upgrade|beautifully elevate} your room decor.`;
 
         detailBody.innerHTML = processSpintax(spintaxArticleTemplate);
     }
 
     function generateRelatedPosts(term) {
         const script = document.createElement('script');
-        // Solusi Related Posts (client=youtube)
         script.src = `https://suggestqueries.google.com/complete/search?client=youtube&jsonp=handleRelatedSuggest&hl=en&q=${encodeURIComponent(term)}`;
         document.head.appendChild(script);
         script.onload = () => script.remove();
@@ -104,8 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const linkUrl = `detail.html?q=${encodeURIComponent(keywordForUrl)}`;
             
             const queryImage = relatedTerm + " wall art poster";
-            
-            // Gambar Related Posts (Rasio Asli)
             const imageUrl = `https://tse1.mm.bing.net/th?q=${encodeURIComponent(queryImage)}&w=400&pid=1.7`;
             
             const newRelatedTitle = generateSeoTitle(relatedTerm);
