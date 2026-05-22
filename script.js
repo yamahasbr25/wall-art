@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function shuffleArray(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[array[i], array[j]] = [array[j], array[i]]; } }
     function capitalizeEachWord(str) { if (!str) return ''; return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '); }
     
-    // SEO Pinterest USA Keywords for Wall Art
     function generateSeoTitle(baseKeyword) { 
         const hookWords = ['Printable', 'Aesthetic', 'Minimalist', 'Boho', 'Modern', 'Abstract', 'Vintage', 'DIY', 'Beautiful', 'Digital']; 
         const suffixWords = ['Wall Art', 'Poster', 'Art Print', 'Digital Download', 'Decor'];
@@ -33,9 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const keywordForUrl = keyword.replace(/\s/g, '-').toLowerCase();
                 const linkUrl = `detail.html?q=${encodeURIComponent(keywordForUrl)}`; 
 
-                // Menambahkan 'wall art' pada kueri gambar agar hasil pencarian bing relevan dengan poster/seni
                 const queryImage = keyword + " wall art poster";
-                const imageUrl = `https://tse1.mm.bing.net/th?q=${encodeURIComponent(queryImage)}&w=600&h=900&c=7&rs=1&p=0&dpr=1.5&pid=1.7`;
+                // Parameter potong dihapus agar gambar Home mengikuti rasio aslinya
+                const imageUrl = `https://tse1.mm.bing.net/th?q=${encodeURIComponent(queryImage)}&w=500&pid=1.7`;
                 
                 const newTitle = generateSeoTitle(keyword);
                 const cardHTML = `<article class="content-card"><a href="${linkUrl}"><img src="${imageUrl}" alt="${newTitle}" loading="lazy"><div class="content-card-body"><h3>${newTitle}</h3></div></a></article>`;
