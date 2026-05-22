@@ -12,7 +12,7 @@ body {
 
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-/* HEADER SIMPEL & RAMPING ALA HOUZZ */
+/* HEADER SIMPEL ALA HOUZZ */
 header {
     background-color: #fff;
     border-bottom: 1px solid #e6e6e6;
@@ -26,7 +26,6 @@ header .container {
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
-    position: relative;
 }
 
 .logo {
@@ -108,44 +107,54 @@ main { padding: 1rem 0; }
 
 footer { text-align: center; padding: 1.5rem 0; border-top: 1px solid #e6e6e6; background-color: #fff; color: #666; font-size: 0.85rem; }
 
-/* SPACING HALAMAN DETAIL - SUPER RAPAT & MEPEET */
-.main-article { background-color: #fff; padding: 0; margin-bottom: 0.5rem; }
+/* SPACING HALAMAN DETAIL - SUPER PADAT & PAS RASIO ASLI */
+.main-article { 
+    background-color: #fff; 
+    padding: 0; 
+    margin-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .main-article h1 { 
     font-size: 1.8rem; 
     line-height: 1.2; 
-    margin-top: 0;
-    margin-bottom: 0.1rem; /* Jarak dari judul ke gambar sangat mepet */
+    margin: 0 0 4px 0; /* Jarak bawah judul tipis */
     text-align: center;
+    width: 100%;
 }
 
 .detail-image { 
-    margin-bottom: 0.1rem; /* Jarak dari gambar ke artikel sangat mepet */
+    margin: 0 auto 4px auto; /* Jarak bawah gambar tipis */
     max-width: 500px; 
-    margin-left: auto;
-    margin-right: auto; 
+    width: 100%;
+    padding: 0;
+    line-height: 0; /* Menghilangkan sisa space font inline di bawah gambar */
 } 
+
 .detail-image img { 
     width: 100%; 
     height: auto; 
-    aspect-ratio: auto; 
+    display: block;
     border-radius: 4px; 
     box-shadow: none; 
     border: none;     
-    display: block;
 }
 
 .article-content { 
-    margin-top: 0.1rem; /* Jarak dari teks ke gambar sangat mepet */
-    padding-top: 0;
+    margin: 0;
+    padding: 0;
     color: #444; 
     font-size: 1rem; 
     line-height: 1.4; 
     text-align: center; 
+    width: 100%;
 }
 .article-content strong { color: #4d9900; }
 
 /* TOMBOL DOWNLOAD */
-.download-buttons-container { display: flex; justify-content: center; margin: 0.8rem 0; }
+.download-buttons-container { display: flex; justify-content: center; margin: 0.6rem 0; width: 100%; }
 .download-button { 
     display: inline-block; 
     background-color: #4d9900; 
@@ -160,21 +169,28 @@ footer { text-align: center; padding: 1.5rem 0; border-top: 1px solid #e6e6e6; b
 }
 .download-button:hover { background-color: #3b7500; }
 
-/* RESPONSIVE LAYOUT & HEADER SELULER (PONSEL) */
+/* RESPONSIVE LAYOUT & HEADER MOBILE (PONSEL) */
 @media (max-width: 1200px) { .content-grid { grid-template-columns: repeat(4, 1fr); } }
 @media (max-width: 992px) { .content-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 768px) {
     .content-grid { grid-template-columns: repeat(2, 1fr); }
     
-    /* Mengaktifkan Tombol Hamburger */
+    header .container {
+        position: relative;
+        justify-content: space-between;
+    }
+
+    /* Tombol Hamburger */
     .nav-toggle-label { 
         display: flex !important; 
         cursor: pointer; 
         width: 22px; 
-        height: 16px; 
+        height: 14px; 
         flex-direction: column; 
-        justify-content: space-between; 
+        justify-content: space-between;
+        z-index: 1001;
     }
+    
     .nav-toggle-label::before,
     .nav-toggle-label::after,
     .nav-toggle-label span {
@@ -186,7 +202,7 @@ footer { text-align: center; padding: 1.5rem 0; border-top: 1px solid #e6e6e6; b
         border-radius: 2px;
     }
     
-    /* Menyembunyikan Navigasi Menu Utama di Ponsel */
+    /* Navigasi Menu Dropdown di Ponsel */
     nav {
         display: none;
         width: 100%;
@@ -203,7 +219,7 @@ footer { text-align: center; padding: 1.5rem 0; border-top: 1px solid #e6e6e6; b
     nav ul li { width: 100%; }
     nav ul li a { display: block; padding: 0.5rem 0; font-size: 0.95rem; }
     
-    /* Menampilkan Menu saat Hamburger di-klik (checked) */
+    /* Trigger Menu Tampil saat Hamburger Aktif */
     .nav-toggle:checked ~ nav { display: block; }
 }
 @media (max-width: 480px) { .content-grid { grid-template-columns: 1fr; } }
