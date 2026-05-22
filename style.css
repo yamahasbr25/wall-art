@@ -62,7 +62,7 @@ main { padding: 1rem 0; }
     align-items: start;
 }
 
-/* KARTU KONTEN / GRID IMAGES */
+/* KARTU KONTEN / GRID IMAGES (RELATED POSTS & HOME) */
 .content-card {
     background-color: #fff;
     border: 1px solid #e6e6e6; 
@@ -76,8 +76,8 @@ main { padding: 1rem 0; }
 .content-card img {
     width: 100%;
     height: auto;
-    aspect-ratio: auto; 
-    object-fit: cover;
+    aspect-ratio: 2 / 3; /* RASIO DIKUNCI KE VERTIKAL POSTER */
+    object-fit: cover;   /* POTONG GAMBAR SECARA OTOMATIS DI TENGAH */
     display: block;
     background-color: #f4f5f4;
 }
@@ -107,7 +107,7 @@ main { padding: 1rem 0; }
 
 footer { text-align: center; padding: 1.5rem 0; border-top: 1px solid #e6e6e6; background-color: #fff; color: #666; font-size: 0.85rem; }
 
-/* SPACING HALAMAN DETAIL - SUPER PADAT & PAS RASIO ASLI */
+/* SPACING HALAMAN DETAIL - SUPER PADAT & RASIO POSTER */
 .main-article { 
     background-color: #fff; 
     padding: 0; 
@@ -120,22 +120,25 @@ footer { text-align: center; padding: 1.5rem 0; border-top: 1px solid #e6e6e6; b
 .main-article h1 { 
     font-size: 1.8rem; 
     line-height: 1.2; 
-    margin: 0 0 4px 0; /* Jarak bawah judul tipis */
+    margin: 0 0 4px 0; 
     text-align: center;
     width: 100%;
 }
 
 .detail-image { 
-    margin: 0 auto 4px auto; /* Jarak bawah gambar tipis */
-    max-width: 100%; 
+    margin: 0 auto 4px auto; 
+    max-width: 450px; /* Diperkecil dari 500px agar rasio vertikal tidak terlalu tinggi di desktop */
     width: 100%;
     padding: 0;
-    line-height: 0; /* Menghilangkan sisa space font inline di bawah gambar */
+    line-height: 0; 
 } 
 
+/* GAMBAR UTAMA SAMA DENGAN RELATED POSTS */
 .detail-image img { 
     width: 100%; 
     height: auto; 
+    aspect-ratio: 2 / 3; /* RASIO DISAMAKAN DENGAN RELATED POSTS */
+    object-fit: cover;   /* POTONG GAMBAR SECARA OTOMATIS DI TENGAH */
     display: block;
     border-radius: 4px; 
     box-shadow: none; 
