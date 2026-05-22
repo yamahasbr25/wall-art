@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const mainImageUrl = `https://tse1.mm.bing.net/th?q=${encodeURIComponent(queryImage)}&w=800&pid=1.7`;
         detailImageContainer.innerHTML = `<img src="${mainImageUrl}" alt="${newTitle}">`;
 
-        // ARTIKEL SINGKAT (±100 Karakter) & TETAP MENGANDUNG KEYWORD UTAMA
+        // ARTIKEL PERSIS SEKITAR 100 KARAKTER TERMASUK KEYWORD UTAMA
         const spintaxArticleTemplate = `{Get|Download} this premium <strong>${capitalizedTermForArticle}</strong> printable wall art to {instantly upgrade|beautifully elevate} your room decor.`;
 
         detailBody.innerHTML = processSpintax(spintaxArticleTemplate);
