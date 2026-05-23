@@ -61,25 +61,24 @@ document.addEventListener('DOMContentLoaded', function() {
         document.head.appendChild(script);
         script.onload = () => script.remove();
         script.onerror = () => { 
-            // Ubah error handling untuk memicu fetch keyword manual jika suggest error
+            // Jika API Suggest error (misal diblokir adblock), jalankan fallback array kosong
             window.handleRelatedSuggest([term, []]); 
             script.remove(); 
-        }
+        };
     }
 
-    // Fungsi handleRelatedSuggest yang sudah dimodifikasi
     window.handleRelatedSuggest = function(data) {
-        const suggestions = data[1];
-        relatedPostsContainer.innerHTML = '';
-        
+        // Mencegah error jika data [1] kosong dari Google
+        const suggestions = (data && data[1]) ? data[1] : [];
         const originalKeyword = keyword.toLowerCase();
+        
+        let suggestHtml = '';
         let relatedCount = 0;
         
-        // 1. Render maksimal 5 postingan dari Google Suggest
-        if (suggestions && suggestions.length > 0) {
+        // 1. Kumpulkan maksimal 5 postingan dari Google Suggest
+        if (suggestions.length > 0) {
             suggestions.forEach(item => {
                 const relatedTerm = typeof item === 'string' ? item : item[0];
-                
                 if (!relatedTerm || relatedTerm.toLowerCase() === originalKeyword || relatedCount >= 5) return;
                 relatedCount++;
                 
@@ -90,30 +89,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 const imageUrl = `https://tse1.mm.bing.net/th?q=${encodeURIComponent(queryImage)}&w=400&h=600&c=7&rs=1&p=0&dpr=1.5&pid=1.7`;
                 
                 const newRelatedTitle = generateSeoTitle(relatedTerm);
-                const card = `<article class="content-card"><a href="${linkUrl}"><img src="${imageUrl}" alt="${newRelatedTitle}" loading="lazy"><div class="content-card-body"><h3>${newRelatedTitle}</h3></div></a></article>`;
-                relatedPostsContainer.innerHTML += card;
+                suggestHtml += `<article class="content-card"><a href="${linkUrl}"><img src="${imageUrl}" alt="${newRelatedTitle}" loading="lazy"><div class="content-card-body"><h3>${newRelatedTitle}</h3></div></a></article>`;
             });
         }
         
-        // 2. Render maksimal 5 postingan random dari keyword.txt
+        // Render / masukkan hasil suggest pertama ke wadah
+        relatedPostsContainer.innerHTML = suggestHtml;
+        
+        // 2. Fetch maksimal 5 postingan random dari keyword.txt
         fetch('keyword.txt')
             .then(response => response.text())
             .then(text => {
-                // Ekstrak keyword, hilangkan baris kosong, dan pastikan tidak sama dengan keyword utama
                 let keywordsArray = text.split('\n')
                     .map(k => k.trim())
                     .filter(k => k.length > 0 && k.toLowerCase() !== originalKeyword);
                 
-                // Acak array dengan Fisher-Yates Shuffle
+                // Acak urutan array
                 for (let i = keywordsArray.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
                     [keywordsArray[i], keywordsArray[j]] = [keywordsArray[j], keywordsArray[i]];
                 }
                 
-                // Ambil 5 keyword pertama dari hasil acakan
                 const randomKeywords = keywordsArray.slice(0, 5);
+                let txtHtml = '';
                 
-                // Render kartu untuk tiap keyword random
                 randomKeywords.forEach(relatedTerm => {
                     const keywordForUrl = relatedTerm.replace(/\s/g, '-').toLowerCase();
                     const linkUrl = `detail.html?q=${encodeURIComponent(keywordForUrl)}`;
@@ -122,11 +121,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     const imageUrl = `https://tse1.mm.bing.net/th?q=${encodeURIComponent(queryImage)}&w=400&h=600&c=7&rs=1&p=0&dpr=1.5&pid=1.7`;
                     
                     const newRelatedTitle = generateSeoTitle(relatedTerm);
-                    const card = `<article class="content-card"><a href="${linkUrl}"><img src="${imageUrl}" alt="${newRelatedTitle}" loading="lazy"><div class="content-card-body"><h3>${newRelatedTitle}</h3></div></a></article>`;
-                    relatedPostsContainer.innerHTML += card;
+                    txtHtml += `<article class="content-card"><a href="${linkUrl}"><img src="${imageUrl}" alt="${newRelatedTitle}" loading="lazy"><div class="content-card-body"><h3>${newRelatedTitle}</h3></div></a></article>`;
                 });
 
-                // Tampilkan atau sembunyikan section jika tidak ada post sama sekali
+                // Insert hasil dari txt ke sebelah bawah (append) TANPA menghapus hasil suggest
+                if (txtHtml !== '') {
+                    relatedPostsContainer.insertAdjacentHTML('beforeend', txtHtml);
+                }
+
+                // Cek apakah wadah memiliki isi. Jika kosong sama sekali, sembunyikan section
                 if (relatedPostsContainer.innerHTML.trim() === '') {
                     relatedPostsContainer.closest('.related-posts-section').style.display = 'none';
                 } else {
@@ -134,9 +137,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .catch(err => {
-                console.error("Gagal mengambil keyword dari keyword.txt:", err);
-                // Jika keyword.txt gagal diload dan suggest juga kosong, sembunyikan section
-                if (relatedCount === 0) {
+                console.error("Gagal mengambil keyword.txt:", err);
+                if (relatedPostsContainer.innerHTML.trim() === '') {
                     relatedPostsContainer.closest('.related-posts-section').style.display = 'none';
                 } else {
                     relatedPostsContainer.closest('.related-posts-section').style.display = 'block';
